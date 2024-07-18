@@ -38,6 +38,7 @@ function operate(firstNum, secondNum, operator) {
     }
 }
 
+/*
 let key0 = document.querySelector("#key0");
 let key1 = document.querySelector("#key1");
 let key2 = document.querySelector("#key2");
@@ -48,9 +49,20 @@ let key6 = document.querySelector("#key6");
 let key7 = document.querySelector("#key7");
 let key8 = document.querySelector("#key8");
 let key9 = document.querySelector("#key9");
+*/
 
-let board = document.querySelector(".board")
+const display = document.querySelector(".display");
+
+function populateDisplay(value) {
+    display.textContent += value.toString();
+}
+
+const board = document.querySelector(".board")
 board.addEventListener("click", (e) => {
-    let digit = e.target.id; 
-    console.log(digit);
+    let key = e.target.id; 
+    if (key !== '') {
+        displayValue = key.slice(3);
+    }
+    populateDisplay(displayValue);
+    displayValue = '';
 })
