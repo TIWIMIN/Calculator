@@ -1,8 +1,9 @@
-let firstNum;
-let secondNum; 
-let operator; 
+let firstNum = '';
+let secondNum = ''; 
+let operator = ''; 
 
-let displayValue; 
+let displayValue = '';
+let currDigit = '';  
 
 function add (a, b) {
     return a + b;
@@ -21,35 +22,32 @@ function divide (a, b) {
 }
 
 function operate(firstNum, secondNum, operator) {
+    firstNum = parseInt(firstNum);
+    secondNum = parseInt(secondNum);
+    let sol = ''; 
+
     switch(operator) {
-        case "plus": 
-            add(firstNum, secondNum);
+        case "+": 
+            sol = add(firstNum, secondNum)
+            populateDisplay(sol);
             break;
-        case "minus":
-            subtract(firstNum, secondNum);
+        case "-":
+            sol = subtract(firstNum, secondNum)
+            populateDisplay(sol);
             break;
-        case "times":
-            multiply(firstNum, secondNum);
+        case "x":
+            sol = multiply(firstNum, secondNum)
+            populateDisplay(sol);
             break;
-        case "obelus":
-            divide(firstNum, secondNum);
+        case "%":
+            sol = divide(firstNum, secondNum)
+            populateDisplay(sol);
             break;
         default: 
     }
-}
 
-/*
-let key0 = document.querySelector("#key0");
-let key1 = document.querySelector("#key1");
-let key2 = document.querySelector("#key2");
-let key3 = document.querySelector("#key3");
-let key4 = document.querySelector("#key4");
-let key5 = document.querySelector("#key5");
-let key6 = document.querySelector("#key6");
-let key7 = document.querySelector("#key7");
-let key8 = document.querySelector("#key8");
-let key9 = document.querySelector("#key9");
-*/
+    return sol;
+}
 
 const display = document.querySelector(".display");
 
@@ -57,12 +55,80 @@ function populateDisplay(value) {
     display.textContent += value.toString();
 }
 
+function clearDisplay() {
+    display.textContent = '';
+}
+
 const board = document.querySelector(".board")
 board.addEventListener("click", (e) => {
     let key = e.target.id; 
-    if (key !== '') {
-        displayValue = key.slice(3);
+    let keyClass = e.target.className;
+
+    switch(keyClass) {
+
+        case "board":
+            return;
+        
+
+        case "digit":
+            if (firstNum !== '' && displayValue === '') {
+                clearDisplay();
+            }
+            if (displayValue === '' && display.textContent !== '') {
+                clearDisplay();
+            }
+
+            currDigit = key.slice(3);
+            displayValue += currDigit;
+            populateDisplay(currDigit);
+            currDigit = '';
+            break;
+
+        case "symbol":
+            if (displayValue === '') {
+                return;
+            }
+            if (secondNum !== '') {
+                clearDisplay();
+                displayValue = '';
+                operate(firstNum, secondNum, operator);
+                firstNum = '';
+                secondNum = '';
+                operator = '';
+            }
+
+            firstNum = displayValue;
+            operator = key.slice(3);
+            displayValue = ''; 
+
+            break;
+        
+        case "solve":
+            if (displayValue === '') {
+                return;
+            }
+            if (secondNum === '') {
+                clearDisplay();
+                secondNum = displayValue;
+                firstNum = operate(firstNum, secondNum, operator);
+                displayValue = firstNum;
+                secondNum = ''; 
+                operator = ''; 
+            }
+            break;
+
+        case "clear":
+            clearDisplay();
+            firstNum = '';
+            secondNum = '';
+            operator = '';
+            displayValue = '';
+            currDigit = '';
+
     }
-    populateDisplay(displayValue);
-    displayValue = '';
+
+    console.log("a " + firstNum);
+    console.log("b " + secondNum);
+    console.log("d " + displayValue);
+    console.log("o " + operator);
 })
