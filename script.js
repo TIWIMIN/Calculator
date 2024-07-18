@@ -49,8 +49,8 @@ let key7 = document.querySelector("#key7");
 let key8 = document.querySelector("#key8");
 let key9 = document.querySelector("#key9");
 
-let digitPress = document.querySelector(".digit")
-digitPress.addEventListener("click", (e) => {
+let board = document.querySelector(".board")
+board.addEventListener("click", (e) => {
     let digit = e.target.id; 
     console.log(digit);
 })
