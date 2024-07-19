@@ -26,6 +26,10 @@ function operate(firstNum, secondNum, operator) {
     secondNum = parseInt(secondNum);
     let sol = ''; 
 
+    if (secondNum === 0 && operator === "%") {
+        return ("break");
+    }
+
     switch(operator) {
         case "+": 
             sol = add(firstNum, secondNum)
@@ -59,10 +63,24 @@ function clearDisplay() {
     display.textContent = '';
 }
 
+function reset() {
+    clearDisplay();
+    firstNum = '';
+    secondNum = '';
+    operator = '';
+    displayValue = '';
+    currDigit = ''
+}
+
 function solve() {
     clearDisplay();
     secondNum = displayValue;
     firstNum = operate(firstNum, secondNum, operator);
+    if (firstNum === "break") {
+        reset();
+        populateDisplay("nuh uh"); 
+        return("break");
+    }
     displayValue = firstNum;
     secondNum = ''; 
     operator = ''; 
@@ -90,6 +108,10 @@ board.addEventListener("click", (e) => {
                 clearDisplay();
                 displayValue = '';
             }
+            if (display.textContent === '0') {
+                clearDisplay();
+                displayValue = '';
+            }
 
             currDigit = key.slice(3);
             displayValue += currDigit;
@@ -109,7 +131,9 @@ board.addEventListener("click", (e) => {
             }
 
             else if (firstNum !== '' && operator !== '') {
-                solve();
+                if (solve() === "break") {
+                    return; 
+                }
                 operator = key.slice(3);
                 displayValue = '';
             }
@@ -124,17 +148,19 @@ board.addEventListener("click", (e) => {
         
         case "solve":
             if (operator === '') {
-                return
+                return;
             }
-            return (displayValue === '') ? null : solve();
-
+            if (displayValue === '') {
+                return;
+            }
+            if (solve() === "break") {
+                return; 
+            }
+            
+            break;
+            
         case "clear":
-            clearDisplay();
-            firstNum = '';
-            secondNum = '';
-            operator = '';
-            displayValue = '';
-            currDigit = '';
+            reset();
 
     }
 
