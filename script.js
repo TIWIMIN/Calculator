@@ -85,7 +85,7 @@ function solve() {
         populateDisplay("nuh uh"); 
         return("break");
     }
-    
+
     if (!Number.isInteger(firstNum)) {
         pointCount = 1; 
     }
@@ -93,10 +93,6 @@ function solve() {
     displayValue = firstNum;
     secondNum = ''; 
     operator = ''; 
-
-    if (!Number.isInteger(firstNum)) {
-        pointCount = 1; 
-    }
 }
 
 const board = document.querySelector(".board")
@@ -119,8 +115,10 @@ board.addEventListener("click", (e) => {
             }
             if (firstNum !== '' && operator === '') {
                 clearDisplay();
+                firstNum = '';
                 displayValue = '';
             }
+
             if (display.textContent === '0') {
                 clearDisplay();
                 displayValue = '';
