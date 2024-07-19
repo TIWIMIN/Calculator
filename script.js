@@ -62,9 +62,11 @@ function populateDisplay(value) {
 
 function clearDisplay() {
     display.textContent = '';
+    pointCount = 0;
 }
 
 function reset() {
+    pointCount = 0;
     clearDisplay();
     firstNum = '';
     secondNum = '';
@@ -77,14 +79,24 @@ function solve() {
     clearDisplay();
     secondNum = displayValue;
     firstNum = operate(firstNum, secondNum, operator);
+
     if (firstNum === "break") {
         reset();
         populateDisplay("nuh uh"); 
         return("break");
     }
+    
+    if (!Number.isInteger(firstNum)) {
+        pointCount = 1; 
+    }
+
     displayValue = firstNum;
     secondNum = ''; 
     operator = ''; 
+
+    if (!Number.isInteger(firstNum)) {
+        pointCount = 1; 
+    }
 }
 
 const board = document.querySelector(".board")
@@ -161,16 +173,18 @@ board.addEventListener("click", (e) => {
             break;
 
         case "point":
-            if (pointCount > 1) {
+            if (pointCount >= 1) {
                 return;
             }
             if (displayValue === '') {
                 populateDisplay("0.");
-                displayValue += "0."; 
+                displayValue += "0.";
+                pointCount++; 
             }
             else {
                 populateDisplay('.');
                 displayValue += ".";
+                pointCount++;
             }
             break;
 
