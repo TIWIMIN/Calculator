@@ -59,6 +59,15 @@ function clearDisplay() {
     display.textContent = '';
 }
 
+function solve() {
+    clearDisplay();
+    secondNum = displayValue;
+    firstNum = operate(firstNum, secondNum, operator);
+    displayValue = firstNum;
+    secondNum = ''; 
+    operator = ''; 
+}
+
 const board = document.querySelector(".board")
 board.addEventListener("click", (e) => {
     let key = e.target.id; 
@@ -88,33 +97,31 @@ board.addEventListener("click", (e) => {
             if (displayValue === '') {
                 return;
             }
-            if (secondNum !== '') {
-                clearDisplay();
-                displayValue = '';
-                operate(firstNum, secondNum, operator);
-                firstNum = '';
-                secondNum = '';
-                operator = '';
+
+            if (firstNum === '' && operator === '') { 
+                console.log('hi?');
+                firstNum = displayValue;
+                operator = key.slice(3);
+                displayValue = ''; 
             }
 
-            firstNum = displayValue;
-            operator = key.slice(3);
-            displayValue = ''; 
+            else if (firstNum !== '' && operator !== '') {
+                console.log("here?");
+                solve();
+                operator = key.slice(3);
+                displayValue = '';
+            }
+
+            else if (firstNum !== '' && operator === '') {
+                operator = key.slice(3);
+                secondNum = displayValue;
+                displayValue = ''; 
+            }
 
             break;
         
         case "solve":
-            if (displayValue === '') {
-                return;
-            }
-            if (secondNum === '') {
-                clearDisplay();
-                secondNum = displayValue;
-                firstNum = operate(firstNum, secondNum, operator);
-                displayValue = firstNum;
-                secondNum = ''; 
-                operator = ''; 
-            }
+            return (displayValue === '') ? null : solve();
             break;
 
         case "clear":
