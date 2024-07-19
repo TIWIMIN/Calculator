@@ -123,6 +123,9 @@ board.addEventListener("click", (e) => {
             break;
         
         case "solve":
+            if (operator === '') {
+                return
+            }
             return (displayValue === '') ? null : solve();
 
         case "clear":
