@@ -86,6 +86,10 @@ board.addEventListener("click", (e) => {
             if (displayValue === '' && display.textContent !== '') {
                 clearDisplay();
             }
+            if (firstNum !== '' && operator === '') {
+                clearDisplay();
+                displayValue = '';
+            }
 
             currDigit = key.slice(3);
             displayValue += currDigit;
@@ -99,14 +103,12 @@ board.addEventListener("click", (e) => {
             }
 
             if (firstNum === '' && operator === '') { 
-                console.log('hi?');
                 firstNum = displayValue;
                 operator = key.slice(3);
                 displayValue = ''; 
             }
 
             else if (firstNum !== '' && operator !== '') {
-                console.log("here?");
                 solve();
                 operator = key.slice(3);
                 displayValue = '';
@@ -122,7 +124,6 @@ board.addEventListener("click", (e) => {
         
         case "solve":
             return (displayValue === '') ? null : solve();
-            break;
 
         case "clear":
             clearDisplay();
