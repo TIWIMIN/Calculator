@@ -3,7 +3,8 @@ let secondNum = '';
 let operator = ''; 
 
 let displayValue = '';
-let currDigit = '';  
+let currDigit = ''; 
+let pointCount = 0; 
 
 function add (a, b) {
     return a + b;
@@ -22,8 +23,8 @@ function divide (a, b) {
 }
 
 function operate(firstNum, secondNum, operator) {
-    firstNum = parseInt(firstNum);
-    secondNum = parseInt(secondNum);
+    firstNum = parseFloat(firstNum);
+    secondNum = parseFloat(secondNum);
     let sol = ''; 
 
     if (secondNum === 0 && operator === "%") {
@@ -158,7 +159,21 @@ board.addEventListener("click", (e) => {
             }
             
             break;
-            
+
+        case "point":
+            if (pointCount > 1) {
+                return;
+            }
+            if (displayValue === '') {
+                populateDisplay("0.");
+                displayValue += "0."; 
+            }
+            else {
+                populateDisplay('.');
+                displayValue += ".";
+            }
+            break;
+
         case "clear":
             reset();
 
