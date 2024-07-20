@@ -191,8 +191,8 @@ board.addEventListener("click", (e) => {
 
     }
 
-    console.log("a " + firstNum);
+    /*console.log("a " + firstNum);
     console.log("b " + secondNum);
     console.log("d " + displayValue);
-    console.log("o " + operator);
+    console.log("o " + operator); */
 })
