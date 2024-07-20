@@ -6,6 +6,7 @@ let displayValue = '';
 let currDigit = ''; 
 let pointCount = 0; 
 
+
 function add (a, b) {
     return a + b;
 }
@@ -55,6 +56,7 @@ function operate(firstNum, secondNum, operator) {
 }
 
 const display = document.querySelector(".display");
+display.textContent = '';
 
 function populateDisplay(value) {
     display.textContent += value.toString();
@@ -188,7 +190,7 @@ board.addEventListener("click", (e) => {
 
         case "clear":
             reset();
-
+            break;
     }
 
     /*console.log("a " + firstNum);

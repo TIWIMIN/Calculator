@@ -1,0 +1,32 @@
+body {
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    width: 100vw; 
+    height: 100vh;
+}
+
+.calculator {
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.display {
+    display: flex; 
+}
+
+.board {
+    display: flex; 
+}
+
+.lColumn {
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.rColumn {
+    display: flex; 
+    flex-direction: column;
+}
