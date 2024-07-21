@@ -34,20 +34,20 @@ function operate(firstNum, secondNum, operator) {
 
     switch(operator) {
         case "+": 
-            sol = add(firstNum, secondNum)
-            populateDisplay(sol);
+            sol = add(firstNum, secondNum);
+            (sol.toString().length > 9) ? populateDisplay(sol.toExponential(3)) : populateDisplay(sol);
             break;
         case "-":
-            sol = subtract(firstNum, secondNum)
-            populateDisplay(sol);
+            sol = subtract(firstNum, secondNum);
+            (sol.toString().length > 9) ? populateDisplay(sol.toExponential(3)) : populateDisplay(sol);
             break;
         case "x":
-            sol = multiply(firstNum, secondNum)
-            populateDisplay(sol);
+            sol = multiply(firstNum, secondNum);
+            (sol.toString().length > 9) ? populateDisplay(sol.toExponential(3)) : populateDisplay(sol);
             break;
         case "%":
-            sol = divide(firstNum, secondNum)
-            populateDisplay(sol);
+            sol = divide(firstNum, secondNum);
+            (sol.toString().length > 9) ? populateDisplay(sol.toExponential(3)) : populateDisplay(sol);
             break;
         default: 
     }
@@ -105,7 +105,7 @@ board.addEventListener("click", (e) => {
     switch(keyClass) {
 
         case "board":
-            return;
+            break;
         
 
         case "digit":
@@ -126,6 +126,10 @@ board.addEventListener("click", (e) => {
                 displayValue = '';
             }
 
+            if (display.textContent.length > 9) {
+                break;
+            }
+
             currDigit = key.slice(3);
             displayValue += currDigit;
             populateDisplay(currDigit);
@@ -134,7 +138,7 @@ board.addEventListener("click", (e) => {
 
         case "symbol":
             if (displayValue === '') {
-                return;
+                break;
             }
 
             if (firstNum === '' && operator === '') { 
@@ -145,7 +149,7 @@ board.addEventListener("click", (e) => {
 
             else if (firstNum !== '' && operator !== '') {
                 if (solve() === "break") {
-                    return; 
+                    break; 
                 }
                 operator = key.slice(3);
                 displayValue = '';
@@ -161,20 +165,20 @@ board.addEventListener("click", (e) => {
         
         case "solve":
             if (operator === '') {
-                return;
+                break;
             }
             if (displayValue === '') {
-                return;
+                break;
             }
             if (solve() === "break") {
-                return; 
+                break; 
             }
             
             break;
 
         case "point":
-            if (pointCount >= 1) {
-                return;
+            if (pointCount >= 1 || display.textContent.length > 11) {
+                break;
             }
             if (displayValue === '') {
                 populateDisplay("0.");
